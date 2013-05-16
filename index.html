@@ -1,0 +1,64 @@
+<!DOCTYPE HTML>
+<html lang="en-US">
+<head>
+	<!--
+	Copyright (C) 2012 id Software LLC, a ZeniMax Media company. 
+	
+	This file is part of the WOLF3D Browser Version GPL Source Code. 
+	-->
+	<meta charset="UTF-8">
+	<title>Test Page</title>
+    <style>
+        body {
+            background-color : black;
+            text-align : center;
+        }
+        #wolf3d {
+            margin-top : 100px;
+            border : none;
+            width : 640px;
+            height : 400px;
+        }
+    </style>
+</head>
+<body>
+
+    <iframe id="wolf3d" src="wolf3d.html" mozallowfullscreen="true" webkitallowfullscreen="true">
+    </iframe>
+    
+    
+    <script>
+        window.onfocus = function() {
+            var game = window.frames[0];
+            if (game) {
+                game.focus();
+            }
+        };
+        window.oncontextmenu = function(e) {
+            if (e.preventDefault) {
+                e.preventDefault();
+            }
+            var game = window.frames[0];
+            if (game && game.Wolf && game.Wolf.Input) {
+                if (game.Wolf.Input.rightMouseDown()) {
+                    game.Wolf.Input.resetMouse();
+                }
+            }
+            return false;
+        }
+        window.onmouseup = function(e) {
+            var game = window.frames[0];
+            if (game && game.Wolf && game.Wolf.Input) {
+                if (game.Wolf.Input.rightMouseDown() || game.Wolf.Input.leftMouseDown()) {
+                    game.Wolf.Input.resetMouse();
+                    if (e.preventDefault) {
+                        e.preventDefault();
+                    }
+                    return false;
+                }
+            }
+        }
+    </script>
+    
+</body>
+</html>
